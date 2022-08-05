@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xatframe</title>
+    <style>
+#messagesContainer {
+  background: #111 !important;
+  color: #2fb92b;  
+  height: 100%;
+  width: 100%;
+  padding-top: 12px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  top: 0 !important;
+  transform: translateZ(0);
+  font-family: Consolas, Courier, monospace;
+  font-size: 12px;
+  text-shadow: 0 0 15px #2fb92b21;
+}
+
+#visitorsContainer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  transform: translateZ(0);
+  background: #111 !important;
+  color: #2fb92b;  
+  font-family: Consolas, Courier, monospace;
+  font-size: 12px;
+  text-shadow: 0 0 15px #2fb92b21;  
+}
+
+.textentry {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  overflow-y: auto;
+  font-weight: 700;
+  position: relative;
+  overflow-x: hidden;
+  word-break: break-word;
+  -webkit-user-select: text;
+  transition: .25s ease-out all;
+  outline: 0 solid transparent;
+  display: block;
+  background: #111 !important;
+  color: #2fb92b;  
+  font-family: Consolas, Courier, monospace;
+  font-size: 12px;
+  text-shadow: 0 0 15px #2fb92b21;  
+}
+
+div#chattabs {
+  overflow-y: hidden;
+  white-space: nowrap;
+  width: 520px;
+}
+
+.chatlinks {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+body {
+  height: 100%;
+  background-color: #131313;
+  background-size: cover;
+  background-position: 50%;
+  background-attachment: fixed;
+  margin-top: 93px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="info">
+        <div class="power-id">Carregando...</div>
+        <div class="power-name">Carregando...</div>
+        <div class="power-price">Carregando...</div>
+        <div class="users-online">Carregando...</div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+    const UpdatePower = () => {
+        $.getJSON('https://xatblog.net/api/latest?json', function (json) {
+            $('.power-id').html(json.result.id);
+            $('.power-name').html(json.result.name);
+            $('.power-price').html(json.result.price);
+        })
+    }
+    const UpdateUsers = () => {
+        $.getJSON('https://openbot.me/tool/usersonline/123?output=json', function (json) {
+            $('.users-online').html(json.message + ' usuários online');
+        })
+    }
+    UpdatePower();
+    UpdateUsers();
+    setInterval(UpdateUsers, 1000 * 30);
+    </script>
+</body>
+</html>
